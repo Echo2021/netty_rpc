@@ -8,6 +8,17 @@ public class ClientRequest {
 	
 	private Object content;
 	
+	private String commond;
+	
+	public String getCommond() {
+		return commond;
+	}
+
+
+	public void setCommond(String commond) {
+		this.commond = commond;
+	}
+
 	private final AtomicLong aid = new AtomicLong(1);
 	
 

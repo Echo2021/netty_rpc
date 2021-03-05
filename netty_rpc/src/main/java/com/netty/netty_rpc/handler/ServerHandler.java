@@ -3,15 +3,16 @@ package com.netty.netty_rpc.handler;
 import org.apache.zookeeper.server.Request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.netty.netty_rpc.client.Response;
 import com.netty.netty_rpc.handler.param.ServerRequest;
+import com.netty.netty_rpc.medium.Media;
+import com.netty.netty_rpc.util.Response;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 
-public class SimpleServerHandler extends ChannelInboundHandlerAdapter {
+public class ServerHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -20,13 +21,20 @@ public class SimpleServerHandler extends ChannelInboundHandlerAdapter {
 		
 		ServerRequest serverRequest = JSONObject.parseObject(msg.toString(),ServerRequest.class);
 		
-		Response response = new Response();
+		Media media = Media.newInstance();
 		
-		response.setId(serverRequest.getId());
+		Response result = media.process(serverRequest);
 		
-		response.setResult("is ok");
 		
-		ctx.channel().writeAndFlush(JSONObject.toJSONString(response));
+		/*
+		 * Response response = new Response();
+		 * 
+		 * response.setId(serverRequest.getId());
+		 * 
+		 * response.setResult("is ok");
+		 */
+		
+		ctx.channel().writeAndFlush(JSONObject.toJSONString(result));
 		
 		
 		ctx.channel().writeAndFlush("\r\n");

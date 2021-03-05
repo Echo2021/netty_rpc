@@ -2,7 +2,7 @@ package com.netty.netty_rpc.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netty.netty_rpc.client.DefaultFuture;
-import com.netty.netty_rpc.client.Response;
+import com.netty.netty_rpc.util.Response;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

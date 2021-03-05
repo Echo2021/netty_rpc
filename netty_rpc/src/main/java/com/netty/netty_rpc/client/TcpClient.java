@@ -2,6 +2,7 @@ package com.netty.netty_rpc.client;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netty.netty_rpc.handler.SimpleClientHandler;
+import com.netty.netty_rpc.util.Response;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

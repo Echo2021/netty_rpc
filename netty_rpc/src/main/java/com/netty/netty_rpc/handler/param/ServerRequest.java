@@ -4,7 +4,9 @@ public class ServerRequest {
 
 	private long id;
 	
-	private Object result;
+	private Object content;
+	
+	private String commond;
 
 	public long getId() {
 		return id;
@@ -14,13 +16,23 @@ public class ServerRequest {
 		this.id = id;
 	}
 
-	public Object getResult() {
-		return result;
+	
+
+	public Object getContent() {
+		return content;
 	}
 
-	public void setResult(Object result) {
-		this.result = result;
+	public void setContent(Object content) {
+		this.content = content;
+	}
+
+	public String getCommond() {
+		return commond;
+	}
+
+	public void setCommond(String commond) {
+		this.commond = commond;
 	}
 	
-	
+	  
 }

@@ -1,10 +1,13 @@
-package com.netty.netty_rpc.server;
+package com.netty.netty_rpc.init;
 
 import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import com.netty.netty_rpc.contants.Contants;
 import com.netty.netty_rpc.factory.ZookeeperFactory;
@@ -24,11 +27,12 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
-public class NettyServer {
 
-	//private static final String Contants = null;
+@Component
+public class NettyInitial implements ApplicationListener<ContextRefreshedEvent> {
+	
+	public void start() throws Exception {
 
-	public static void main(String[] args) throws Exception {
 
 		ServerBootstrap bootstrap = new ServerBootstrap();
 
@@ -76,5 +80,18 @@ public class NettyServer {
 			childGroup.shutdownGracefully();
 		}
 
+	
 	}
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+		try {
+			this.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
 }
