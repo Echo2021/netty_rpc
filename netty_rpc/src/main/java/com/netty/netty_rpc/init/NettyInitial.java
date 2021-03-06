@@ -69,7 +69,10 @@ public class NettyInitial implements ApplicationListener<ContextRefreshedEvent> 
 			
 			InetAddress netAddress = InetAddress.getLocalHost();
 			
-			client.create().withMode(CreateMode.EPHEMERAL).forPath(Contants.SERVER_PATH+netAddress.getHostAddress());
+			int port = 8082;
+			//序列号EPHEMERAL_SEQUENTIAL,注意这里是递归建立父节点 creatingParentsIfNeeded
+			String pathString  = Contants.SERVER_PATH+"/"+netAddress.getHostAddress()+"#"+port+"#";
+			client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(pathString);
 			
 			f.channel().closeFuture().sync();
 		} catch (InterruptedException e) {

@@ -58,14 +58,20 @@ public class NettyServer {
 
 					});
 
-			ChannelFuture f = bootstrap.bind(8082).sync();
+			int port = 8083;
+			
+			ChannelFuture f = bootstrap.bind(port).sync();
+			
+			
 
 			//服务器注册到zookeeper
 			CuratorFramework client = ZookeeperFactory.create();
 			
 			InetAddress netAddress = InetAddress.getLocalHost();
 			
-			client.create().withMode(CreateMode.EPHEMERAL).forPath(Contants.SERVER_PATH+netAddress.getHostAddress());
+			String pathString  = Contants.SERVER_PATH+"/"+netAddress.getHostAddress()+"#"+port+"#";
+			
+			client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(pathString);
 			
 			f.channel().closeFuture().sync();
 		} catch (InterruptedException e) {
